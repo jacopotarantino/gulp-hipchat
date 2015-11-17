@@ -1,8 +1,8 @@
 {
   "name": "gulp-hipchat",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "",
-  "license": "MIT",
+  "license": "CC-BY-SA-4.0",
   "repository": "jacopotarantino/gulp-hipchat",
   "author": {
     "name": "Jack",
@@ -10,7 +10,7 @@
     "url": "https://github.com/jacopotarantino"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0.0"
   },
   "scripts": {
     "test": "mocha"
@@ -19,7 +19,8 @@
     "index.js"
   ],
   "keywords": [
-    "gulpplugin"
+    "gulpplugin",
+    "hipchat"
   ],
   "dependencies": {
     "gulp-util": "^3.0.1",
