@@ -2,6 +2,8 @@
 
 Gulp plugin to send notifications to a HipChat room.
 
+More description //@TODO
+
 ## Install
 
 ```
@@ -10,30 +12,53 @@ $ npm install --save-dev gulp-hipchat
 
 ## Usage
 
-```js
-var gulp = require('gulp');
-var hipchat = require('gulp-hipchat');
+The below would go in `<PROJECT SOURCE>/gulp/hipchat.js`.
 
-gulp.task('default', function () {
-	return gulp.src('src/file.ext')
-		.pipe(hipchat())
-		.pipe(gulp.dest('dist'));
-});
+```js
+var gulp = require('gulp'),
+    hipchat = require('gulp-hipchat')
+
+gulp.task('notify-hipchat-of-build', function (done) {
+  hipchat({
+    apiKey: 'YOUR_API_KEY',
+    room: 'YOUR_PREFERRED_ROOM_ID', // see [this link](https://www.hipchat.com/docs/apiv2/method/get_all_rooms) for details on how to get your room id
+    message: '<strong>warning!</strong>: building [library-name] to production!',
+    from: 'YOUR_NAME', // or santa_claus... whatever.
+    color: 'YOUR_FAVORITE_COLOR' // hipchat only supports a few text colors. [see here](https://www.hipchat.com/docs/api/method/rooms/message)
+  }, done)
+})
+
+gulp.task('build-to-production', ['notify-hipchat-of-build'], function () {
+  // do other build tasks...
+})
 ```
 
 ## API
 
-### hipchat(options)
+### hipchat(options, callback)
 
 #### options
 
-##### foo
+A hash of options as defined below:
 
-Type: `boolean`  
-Default: `false`
+```javascript
+{
+//@TODO
+}
+```
 
-Lorem ipsum.
+#### callback
+
+The gulp callback function. This is important so that Gulp can know when the the very synchronous task is done.
+
+## Testing
+
+//@TODO
+
+## Contributing
+
+//@TODO
 
 ## License
 
-MIT © [Jack](https://github.com/jacopotarantino)
+This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/deed.en_US.

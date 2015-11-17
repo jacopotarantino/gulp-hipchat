@@ -1,31 +1,16 @@
-'use strict';
-var gutil = require('gulp-util');
-var through = require('through2');
-var someModule = require('some-module');
+'use strict'
+var gutil = require('gulp-util')
+var through = require('through2')
+var Hipchat = require('node-hipchat')
 
-module.exports = function (options) {
-	if (!options.foo) {
-		throw new gutil.PluginError('gulp-hipchat', '`foo` required');
-	}
+module.exports = function (options, callback) {
+  if (!options.apiKey) {
+    throw new gutil.PluginError('gulp-hipchat', '`apiKey` is required to communicate with hipchat')
+  }
 
-	return through.obj(function (file, enc, cb) {
-		if (file.isNull()) {
-			cb(null, file);
-			return;
-		}
+  hipchat = new Hipchat(options.apiKey)
 
-		if (file.isStream()) {
-			cb(new gutil.PluginError('gulp-hipchat', 'Streaming not supported'));
-			return;
-		}
-
-		try {
-			file.contents = new Buffer(someModule(file.contents.toString(), options));
-			this.push(file);
-		} catch (err) {
-			this.emit('error', new gutil.PluginError('gulp-hipchat', err));
-		}
-
-		cb();
-	});
-};
+  hipchat.postMessage(options, function (data) {
+    callback()
+  })
+}
