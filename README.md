@@ -41,24 +41,33 @@ gulp.task('build-to-production', ['notify-hipchat-of-build'], function () {
 
 A hash of options as defined below:
 
-```javascript
-{
-//@TODO
+* apiKey
+  * Your HipChat API key.
+* room
+  * See [this link](https://www.hipchat.com/docs/apiv2/method/get_all_rooms) for details on how to get your room id. This is the HipChat room you'd like your message posted to.
+* message
+  * The text content to post to your chat room.
+* color
+  * The background/text color to set for your message to HipChat.
 }
 ```
 
 #### callback
 
-The gulp callback function. This is important so that Gulp can know when the the very synchronous task is done.
+The gulp callback function. This is important so that Gulp can know when this very synchronous task is done.
 
 ## Testing
 
-//@TODO
+This is a fairly small plugin and has a fairly limited API. Run the below to execute all tests. If you plan on contributing to the project please make sure to write new tests before writing new functional code.
+
+```bash
+node ./test.js
+```
 
 ## Contributing
 
-//@TODO
+Please make a pull request or open a new issue with any concerns or recommendations. Pull requests are recommended and take priority. Please conform to the code style already present in the repository. Please write tests for all new code and improve tests and documentation where possible.
 
 ## License
 
-This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/deed.en_US.
+This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit [http://creativecommons.org/licenses/by-sa/4.0/deed.en_US](http://creativecommons.org/licenses/by-sa/4.0/deed.en_US.

@@ -1,6 +1,5 @@
 'use strict'
 var gutil = require('gulp-util')
-var through = require('through2')
 var Hipchat = require('node-hipchat')
 
 module.exports = function (options, callback) {
