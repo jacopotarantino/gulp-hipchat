@@ -10,7 +10,7 @@
     "url": "https://github.com/jacopotarantino"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=5.0.0"
   },
   "scripts": {
     "test": "mocha"
@@ -28,6 +28,7 @@
     "through2": "^0.6.3"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "sinon": "^1.17.2"
   }
 }

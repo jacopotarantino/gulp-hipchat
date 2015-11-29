@@ -1,32 +1,78 @@
 'use strict'
-var assert = require('assert')
-var gutil = require('gulp-util')
-var hipchat = require('./')
+let assert = require('assert')
+    , sinon = require('sinon')
+    , gutil = require('gulp-util')
+    , https = require('https')
+    , hipchat = require('./')
 
-// it('should ', function (cb) {
-//   var stream = hipchat()
+describe('gulp-hipchat', () => {
 
-//   stream.on('data', function (file) {
-//     assert.strictEqual(file.contents.toString(), 'unicorns')
-//   })
+  before( (done) => {
+    sinon
+      .stub(https, 'request')
+      .yields(null, null, JSON.stringify({login: "bulkan"}))
+    done()
+  })
 
-//   stream.on('end', cb)
+  after( (done) => {
+    https.request.restore()
+    done()
+  })
 
-//   stream.write(new gutil.File({
-//     base: __dirname,
-//     path: __dirname + '/file.ext',
-//     contents: new Buffer('unicorns')
-//   }))
+  it('should have `node-hipchat` as a dependency', () => {
+    var node_hipchat = require('node-hipchat')
+    assert(node_hipchat !== undefined && node_hipchat !== null)
+  })
 
-//   stream.end()
-// })
+  it('should error out if the api key is missing', () => {
+    function hipchat_with_empty_options () {
+      hipchat({})
+    }
 
-it('should take `node-hipchat` as an argument', function () {})
+    assert.throws(hipchat, TypeError)
+    assert.throws(hipchat_with_empty_options, Error)
+  })
 
-it('should error out if the api key is missing', function () {})
+  it('should send a notification to hipchat', done => {
+    hipchat({
+      apiKey: 'asdfasdfasfd',
+      room: 123456,
+      from: 'FunkyMonkey',
+      message: 'Some HTML <strong>formatted</strong> string',
+      color: 'yellow'
+    }, data => {
 
-it('should send a notification to hipchat', function () {})
+      https.request.called.should.be.equal(true)
+      done()
+    })
+  })
 
-it('should handle any errors passed back from hipchat', function () {})
+  it('should handle any errors passed back from hipchat', () => {
+    hipchat({
+      apiKey: 'asdfasdfasfd',
+      room: 123456,
+      from: 'FunkyMonkey',
+      message: 'Some HTML <strong>formatted</strong> string',
+      color: 'yellow'
+    }, data => {
 
-it('should pass through successfully if hipchat returned successfully', function () {})
+      https.request.called.should.be.equal(true)
+      done()
+    })
+  })
+
+  it('should pass through successfully if hipchat returned successfully', () => {
+    hipchat({
+      apiKey: 'asdfasdfasfd',
+      room: 123456,
+      from: 'FunkyMonkey',
+      message: 'Some HTML <strong>formatted</strong> string',
+      color: 'yellow'
+    }, data => {
+      assert( data.success === true )
+      https.request.called.should.be.equal(true)
+      done()
+    })
+  })
+
+})

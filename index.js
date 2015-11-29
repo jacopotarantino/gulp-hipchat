@@ -7,7 +7,7 @@ module.exports = function (options, callback) {
     throw new gutil.PluginError('gulp-hipchat', '`apiKey` is required to communicate with hipchat')
   }
 
-  hipchat = new Hipchat(options.apiKey)
+  let hipchat = new Hipchat(options.apiKey)
 
   hipchat.postMessage(options, function (data) {
     callback()
